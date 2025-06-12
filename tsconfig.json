@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@generated/*": ["generated/*"]
+    },
     "target": "ES2020",
     "module": "CommonJS",
     "moduleResolution": "node",

@@ -5,17 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
-// Load environment variables
+const routes_1 = require("./routes");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT ?? 3000;
-// Middleware
+const port = process.env.PORT || 3000;
 app.use(express_1.default.json());
-// Sample route
+app.use('/api/payments', routes_1.paymentRoutes);
 app.get('/', (req, res) => {
     res.send('buildasLab API is running!');
 });
-// Start server
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
+});
 app.listen(port, () => {
-    console.log(`🚀 Server is running on http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`);
 });
