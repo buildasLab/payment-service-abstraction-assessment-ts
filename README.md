@@ -55,7 +55,7 @@ Build a minimal but extendable service in TypeScript that can:
 
 - Keep it simple, structured, and production-minded.
 
-# Docs
+## Docs
 
 - Paystack: https://paystack.com/docs/api/transaction/#initialize
 - Flutterwave:
