@@ -54,4 +54,5 @@ Build a minimal but extendable service in TypeScript that can:
 ## Deliverable
 
 - Keep it simple, structured, and production-minded.
+
 # payment-service-abstraction-assessment-ts
