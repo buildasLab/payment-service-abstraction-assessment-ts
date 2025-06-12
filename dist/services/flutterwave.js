@@ -10,7 +10,7 @@ dotenv_1.default.config();
 const requiredEnvVars = {
     FLUTTERWAVE_BASE_URL: process.env.FLUTTERWAVE_BASE_URL,
     FLUTTERWAVE_SECRET_KEY: process.env.FLUTTERWAVE_SECRET_KEY,
-    CALLBACK_URL: process.env.callback_url
+    callback_url: process.env.callback_url
 };
 Object.entries(requiredEnvVars).forEach(([key, value]) => {
     if (!value) {
@@ -31,7 +31,13 @@ class FlutterwaveService {
     }
     async initiatePayment(data) {
         try {
-            const response = await this.api.post('/v3/charges', {
+            console.log('Initiating Flutterwave payment with data:', {
+                amount: data.amount,
+                email: data.email,
+                referenceId: data.referenceId,
+                currency: data.currency
+            });
+            const response = await this.api.post('/v3/payments', {
                 amount: data.amount,
                 email: data.email,
                 tx_ref: data.referenceId,
@@ -45,11 +51,13 @@ class FlutterwaveService {
                     description: 'Payment for services',
                 },
                 payment_options: 'card,banktransfer,ussd',
+                payment_type: 'card'
             }, {
                 headers: {
                     Authorization: `Bearer ${process.env.FLUTTERWAVE_SECRET_KEY}`,
                 },
             });
+            console.log('Flutterwave API response:', response.data);
             if (response.data.status === 'success') {
                 return {
                     status: 'pending',
@@ -62,7 +70,16 @@ class FlutterwaveService {
             throw new Error(response.data.message || 'Failed to initiate payment');
         }
         catch (error) {
-            console.error('Flutterwave payment initiation error:', error);
+            if (axios_1.default.isAxiosError(error)) {
+                console.error('Flutterwave API error:', {
+                    status: error.response?.status,
+                    data: error.response?.data,
+                    message: error.message
+                });
+            }
+            else {
+                console.error('Flutterwave payment initiation error:', error);
+            }
             return {
                 status: 'failed',
                 referenceId: data.referenceId,
@@ -90,7 +107,16 @@ class FlutterwaveService {
             throw new Error(response.data.message || 'Failed to verify payment');
         }
         catch (error) {
-            console.error('Flutterwave payment verification error:', error);
+            if (axios_1.default.isAxiosError(error)) {
+                console.error('Flutterwave API error:', {
+                    status: error.response?.status,
+                    data: error.response?.data,
+                    message: error.message
+                });
+            }
+            else {
+                console.error('Flutterwave payment verification error:', error);
+            }
             return {
                 status: 'failed',
                 referenceId,

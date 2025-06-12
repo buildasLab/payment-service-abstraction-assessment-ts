@@ -1,4 +1,4 @@
-import { Request, Response, RequestHandler } from 'express';
+import { RequestHandler } from 'express';
 import { PaymentService, PaystackService, FlutterwaveService } from '../services';
 import { PrismaClient } from '@prisma/client';
 
@@ -11,7 +11,7 @@ const flutterwaveService = new PaymentService(new FlutterwaveService());
 export const initiatePayment: RequestHandler = async (req, res) => {
     try {
         const { amount, email, provider, currency } = req.body;
-        const referenceId = `ref_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const referenceId = `ref_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
         const paymentData = {
             amount,
             email,
