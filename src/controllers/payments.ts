@@ -12,7 +12,6 @@ export const initiatePayment: RequestHandler = async (req, res) => {
     try {
         const { amount, email, provider, currency } = req.body;
         const referenceId = `ref_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
         const paymentData = {
             amount,
             email,
