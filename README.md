@@ -28,7 +28,7 @@ Build a minimal but extendable service in TypeScript that can:
 ## Tech Stack
 
 - **Language:** TypeScript
-- **ORM:** Of your choice
+- **ORM:** Yourchoice
 - **Database:** Postgres
 - **Execution:** Run with `npm run dev`
 
@@ -55,4 +55,9 @@ Build a minimal but extendable service in TypeScript that can:
 
 - Keep it simple, structured, and production-minded.
 
-# payment-service-abstraction-assessment-ts
+# Docs
+
+- Paystack: https://paystack.com/docs/api/transaction/#initialize
+- Flutterwave:
+  - Initialize Tx: https://developer.flutterwave.com/reference/checkout
+  - Verify Tx: https://developer.flutterwave.com/reference/verify-transaction-with-tx_ref
