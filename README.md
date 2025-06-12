@@ -1,4 +1,4 @@
-# 🧾 buidaslab Engineering Assessment — Payment Service Abstraction
+# buidaslab Engineering Assessment — Payment Service Abstraction
 
 ## Overview
 
